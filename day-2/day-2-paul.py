@@ -1,0 +1,1 @@
+print(round(sum([x//10+x%10*1e-9 for x in[ord(dict(zip([x+y for x in'ABC'for y in'XYZ'],'+T&\x0b7cH\x1aC'))[l])for l in[l[0::2]for l in open('2')]]]),9))
