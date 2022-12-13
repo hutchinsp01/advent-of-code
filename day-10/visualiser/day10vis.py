@@ -4,18 +4,8 @@ import time
 from pathlib import Path
 
 import numpy as np
+from constants import *
 
-LINE_UP = '\033[1A'
-LINE_CLEAR = '\x1b[2K'
-
-FONT_FILL = "#"
-FONT_BLANK = "."
-
-FILL_CHAR = "#"
-BLANK_CHAR = "."
-
-DISPLAY_SIZE_X = 40
-DISPLAY_SIZE_Y = 6
 
 def load_font():
     font = (Path(__file__).parent / "font.txt").read_text()
@@ -116,11 +106,11 @@ class Video:
         two_ahead = self.get_pixel(pixel_list, i+2)
         three_ahead = self.get_pixel(pixel_list, i+3)
         if two_ahead == self.fill_char and three_ahead == self.blank_char:
-            next_x_register = i + 1
+            next_x_register = i
         if two_ahead == self.fill_char and three_ahead == self.fill_char:
-            next_x_register = i + 2
+            next_x_register = i + 1
         if two_ahead == self.blank_char and three_ahead == self.fill_char:
-            next_x_register = i + 3
+            next_x_register = i + 2
         if two_ahead == self.blank_char and three_ahead == self.blank_char:
             next_x_register = i + 4
 
@@ -177,9 +167,10 @@ class Display:
         sys.stdout.write(d)
         sys.stdout.flush()
 
-display = Display(frame_time=0.2)
+display = Display(frame_time=0.01)
 video = Video()
 video.add_blank_frames(5)
-# video.add_text("Hello World!")
+video.add_text("  BARNSEY DONT LIE, THIS IS A GREAT VIDEO ")
 video.generate_instructions()
 display.run(video.instructions)
+# print(video.instructions)
